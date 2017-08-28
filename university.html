@@ -1,0 +1,210 @@
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li class="active"><a href="#">Add University</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- form -->
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>ADD</strong> University</h3>
+
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <div class="col-xs-12" id="ResponseDiv">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>University Name</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input type="text" id="UniName" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>University Cover</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input type="file" id="UniCover" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>University Profile Picture</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input type="file" id="UniProfile" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Abbrevation</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="Abb" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>Email</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="Email" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>Contact Number</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="ContactNo" type="text" class="form-control" onkeypress="ValidateInputFieldForIntegers(evt)" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <div class="form-group">
+                            <h3 class="col-md-3 col-xs-12 control-label"><strong>ADDRESS:</strong></h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>street</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="Street" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>City</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="City" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"><span class="text-danger">*</span>State</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="State" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Ranking</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="Rank" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Total Students</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="TotalStd" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Male Student Ratio</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="MaleRatio" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Female Student Ratio</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="FemaleRatio" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Land Area</label>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                    <input id="LandArea" type="text" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label"> Description</label>
+                            <div class="col-md-6 col-xs-12">
+                                <textarea id="Description" class="form-control" rows="5"></textarea>
+                                <span class="help-block">Default textarea field</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+
+                        <button class="btn btn-primary pull-right" onclick="AddUniversity()">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

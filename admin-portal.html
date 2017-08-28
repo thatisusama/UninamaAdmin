@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- META SECTION -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- END META SECTION -->
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom StyleSheet -->
+    <link rel="stylesheet" type="text/css" href="css/theme-default.css">
+
+    <!-- Title -->
+    <title>Uninama - Admin Portal</title>
+    <link rel="icon" href="#">
+
+</head>
+
+<body onload="CheckSession()">
+    <!-- START PAGE CONTAINER -->
+    <div class="page-container">
+
+        <!-- START PAGE SIDEBAR -->
+        <div class="page-sidebar">
+            <!-- START X-NAVIGATION -->
+            <ul class="x-navigation">
+                <li class="xn-logo">
+                    <a href="admin-portal.html">Uninama</a>
+                    <a href="admin-portal.html" class="x-navigation-control"></a>
+                </li>
+                <li class="xn-title">Navigation</li>
+                <li class="active xn-openable">
+                    <a href="admin-portal.html"><span class="fa fa-desktop"></span> <span class="xn-text"> Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-university"></i> University <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo" class="xn-openable">
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('show_universities.html')">Show Universities</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('university.html')"> Add University</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-user"></i> Course <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo" class="xn-openable">
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('show_course.html')">Show Courses</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('newCourse.html')"> Add New Course</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('course.html')"> Add University Course</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li>
+                    <a href="javascript:LoadBodyContentOnClick('newCourse.html')"><span class="fa fa-user"></span> <span class="xn-text"> Add New Course  </span></a>
+                </li> -->
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-graduation-cap"></i> Degree <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo" class="xn-openable">
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('show_degrees.html')">Show All Degrees</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('newDegree.html')"> Add New Degree</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('degree.html')"> Add University Degree</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-graduation-cap"></i> Descpline <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo" class="xn-openable">
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('show_descpline.html')">Show Disciplines</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('discipline.html')"> Add Discipline</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-square"></i> Badges <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo" class="xn-openable">
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('viewbadges.html')">View Badges</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('addbadge.html')"> Add Badges</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-tags"></i> Tags <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo" class="xn-openable">
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('viewTag.html')">View Tags</a>
+                        </li>
+                        <li>
+                            <a href="javascript:LoadBodyContentOnClick('newTag.html')"> Add Tags</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:LoadBodyContentOnClick('createePage.html')"><span class="fa fa-user"></span> <span class="xn-text"> Create Page </span></a>
+                </li>
+
+            </ul>
+            <!-- END X-NAVIGATION -->
+        </div>
+        <!-- END PAGE SIDEBAR -->
+
+        <!-- PAGE CONTENT -->
+        <div id="pg_content" class="page-content">
+
+            <!-- START X-NAVIGATION VERTICAL -->
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                <!-- TOGGLE NAVIGATION -->
+                <li class="xn-icon-button">
+                    <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+
+                </li>
+                <!-- END TOGGLE NAVIGATION -->
+
+
+                <!-- SIGN OUT -->
+                <li class="xn-icon-button pull-right">
+                    <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
+                </li>
+            </ul>
+            <!-- END X-NAVIGATION VERTICAL -->
+
+            <div id="MainBodyContent">
+                <!-- START WIDGET REGISTRED -->
+                <div class="row" style="margin-top: 70px;">
+                    <div class="col-lg-3">
+                        <div class="widget widget-default widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-university"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div class="widget-title">Registred Universities</div>
+                                <div id="totalUni">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="widget widget-default widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-square"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div class="widget-title">Registred Badges</div>
+                                <div id="totalBadges">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="widget widget-default widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-tags"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div class="widget-title">Registred Tags</div>
+                                <div id="totalTags">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="widget widget-default widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-graduation-cap"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div class="widget-title">Registred Degrees</div>
+                                <div id="totalDegrees">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="widget widget-default widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-graduation-cap"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div class="widget-title">Registred Courses</div>
+                                <div id="totalCourses">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="widget widget-default widget-item-icon">
+                            <div class="widget-item-left">
+                                <span class="fa fa-graduation-cap"></span>
+                            </div>
+                            <div class="widget-data">
+                                <div class="widget-title">Registred Disciplines</div>
+                                <div id="totalDisciplines">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Dynamic Body Content Ends -->
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+    <!-- END PAGE CONTAINER -->
+
+    <!-- MESSAGE BOX-->
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+                <div class="mb-content">
+                    <p>Are you sure you want to log out?</p>
+                    <p>Press "Yes" to logout current user. Press "No" to Cancel.</p>
+                </div>
+                <div class="mb-footer">
+                    <div class="pull-right">
+                        <a href="#" onclick="Logout()" class="btn btn-success btn-lg">Yes</a>
+                        <button class="btn btn-default btn-lg mb-control-close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MESSAGE BOX-->
+
+    <div id="JavascriptTags">
+
+    </div>
+</body>
+<!-- Header Files -->
+
+<!-- START SCRIPTS -->
+<!-- START PLUGINS -->
+<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+<!-- END PLUGINS -->
+
+<!-- START THIS PAGE PLUGINS-->
+<script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+<script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+<script type="text/javascript" src="js/plugins/scrolltotop/scrolltopcontrol.js"></script>
+
+<script type="text/javascript" src="js/plugins/morris/raphael-min.js"></script>
+<script type="text/javascript" src="js/plugins/morris/morris.min.js"></script>
+<script type="text/javascript" src="js/plugins/rickshaw/d3.v3.js"></script>
+<script type="text/javascript" src="js/plugins/rickshaw/rickshaw.min.js"></script>
+<script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
+<script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
+<script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
+<script type="text/javascript" src="js/plugins/owl/owl.carousel.min.js"></script>
+<script type="text/javascript" src="js/plugins/session/jquery.session.js"></script>
+
+<script type="text/javascript" src="js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+<script type="text/javascript" src="js/plugins/dropzone/dropzone.min.js"></script>
+
+<script type="text/javascript" src="js/plugins/moment.min.js"></script>
+<script type="text/javascript" src="js/plugins/daterangepicker/daterangepicker.js"></script>
+
+<script type="text/javascript" src="js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+<script type="text/javascript" src="js/plugins/bootstrap/bootstrap-file-input.js"></script>
+<script type="text/javascript" src="js/plugins/bootstrap/bootstrap-select.js"></script>
+
+<script type="text/javascript" src="js/plugins/dropzone/dropzone.min.js"></script>
+<script type="text/javascript" src="js/plugins/fileinput/fileinput.min.js"></script>
+<script type="text/javascript" src="js/plugins/filetree/jqueryFileTree.js"></script>
+
+<script type="text/javascript" src="js/plugins/FileUpload/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/plugins/FileUpload/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="js/plugins/FileUpload/jquery.fileupload.js"></script>
+<!-- <script type="text/javascript" src="js/plugins/datatables/jquery.dataTables.min.js"></script> -->
+<script type="text/javascript" src="js/plugins/tableexport/tableExport.js"></script>
+<script type="text/javascript" src="js/plugins/tableexport/jquery.base64.js"></script>
+<script type="text/javascript" src="js/plugins/tableexport/html2canvas.js"></script>
+<script type="text/javascript" src="js/plugins/tableexport/jspdf/libs/sprintf.js"></script>
+<script type="text/javascript" src="js/plugins/tableexport/jspdf/jspdf.js"></script>
+<script type="text/javascript" src="js/plugins/tableexport/jspdf/libs/base64.js"></script>
+<script type="text/javascript" src="js/plugins/md5/jquery.md5.js"></script>
+<script type="text/javascript" src="js/table/jquery.dynatable.js"></script>
+
+<!-- END THIS PAGE PLUGINS-->
+
+<!-- START TEMPLATE -->
+<script type="text/javascript" src="js/settings.js"></script>
+
+<script type="text/javascript" src="js/plugins.js"></script>
+<script type="text/javascript" src="js/actions.js"></script>
+
+<script type="text/javascript" src="js/demo_dashboard.js"></script>
+<!-- END TEMPLATE -->
+
+<!-- Custom Scripts -->
+<script type="text/javascript" src="js/PannelFunctions.js"></script>
+<script>
+    getTotalUniversities();
+    getTotalTags();
+    getTotalBadges();
+    getTotalDegrees();
+    getTotalCourses();
+    getTotalDisciplines();
+</script>
+
+<!-- END SCRIPTS -->
+
+</html>

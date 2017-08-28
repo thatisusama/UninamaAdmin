@@ -1,0 +1,401 @@
+<script>
+    getUniversitiesLists();
+    $('#editModal').on('show.bs.modal', function() {
+
+        getUni();
+    });
+    $('#logoModal').on('show.bs.modal', function() {
+        $('#UniiId').val(dataId);
+    });
+    $('#coverModal').on('show.bs.modal', function() {
+        $('#UniiiId').val(dataId);
+    });
+
+    function getUni() {
+        $.get("http://uninamaapi.azurewebsites.net/api/University/GetUniversityData?id=" + dataId + "", function(data, status) {
+            console.log(dataId);
+            $('#UniId').val(data.universityID);
+            $('#UniName').val(data.universityName);
+            $('#Abb').val(data.universityAbbreviation);
+            $('#Email').val(data.universityEmail);
+            $('#ContactNo').val(data.universityContactNumber);
+            var address = data.address;
+            var result = address.split(",");
+            console.log(result);
+            $('#Street').val(result[0]);
+            $('#City').val(result[1]);
+            $('#State').val(result[2]);
+            $('#Rank').val(data.universityRanking);
+            $('#TotalStd').val(data.universityTotalStudents);
+            $('#MaleRatio').val(data.universityMaleStudentsRatio);
+            $('#FemaleRatio').val(data.universityFemaleStudentsRatio);
+            $('#LandArea').val(data.universityLandArea);
+            $('#Description').val(data.universityDescription);
+        });
+    }
+</script>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li class="active"><a href="#">Show Universities</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- form -->
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-actions">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Logo</th>
+                                <th>Cover</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableRow">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete University</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to Delete this university?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteUni()" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update University</h4>
+            </div>
+            <div class="modal-body" id="modalBody">
+
+                <div class="form-group">
+                    <label class="control-label"><span class="text-danger">*</span>University Id</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <input type="text" id="UniId" class="form-control" disabled />
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>University Name</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="text" id="UniName" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label">Abbrevation</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="Abb" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>Email</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="Email" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>Contact Number</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="ContactNo" type="text" class="form-control" onkeypress="ValidateInputFieldForIntegers(evt)" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>street</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="Street" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>City</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="City" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>State</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="State" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class=" control-label">Ranking</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="Rank" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label">Total Students</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="TotalStd" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label">Male Student Ratio</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="MaleRatio" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label">Female Student Ratio</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="FemaleRatio" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label">Land Area</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input id="LandArea" type="text" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>University Profile Picture</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="file" id="UniProfile" class="form-control" />
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label"><span class="text-danger">*</span>University Cover</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="file" id="UniCover" class="form-control" />
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label class=" control-label"> Description</label>
+
+                    <textarea id="Description" class="form-control" rows="4"></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" onclick="updateUni()" data-dismiss="modal">Update</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="logoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Logo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label"><span class="text-danger">*</span>University Id</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <input type="text" id="UniiId" class="form-control" disabled />
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label"><span class="text-danger">*</span>Logo Upload</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <input type="file" id="LogoUpload" class="form-control" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteUni()" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="coverModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Cover</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label"><span class="text-danger">*</span>University Id</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <input type="text" id="UniiiId" class="form-control" disabled />
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label"><span class="text-danger">*</span>Cover Upload</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <input type="file" id="CoverUpload" class="form-control" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteUni()" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+
+    </div>
+</div>

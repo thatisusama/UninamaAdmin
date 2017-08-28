@@ -1,0 +1,107 @@
+<script>
+    getDegreesLists();
+
+    $('#editModal').on('show.bs.modal', function() {
+
+        //getDescpline();
+    });
+
+    function getDescpline() {
+        $.get("http://uninamaapi.azurewebsites.net/api/University/GetUniversityData?id=" + dataId + "", function(data, status) {
+            $('#DegreeID').val(data.courseID);
+            $('#DegreeName').val(data.courseName);
+        });
+    }
+</script>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li class="active"><a href="#">Show Degrees</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- form -->
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-actions">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>degreeID</th>
+                                <th>degreeName</th>
+                                <th>options</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableRow">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete University</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to Delete this Degree?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteDegree()" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Degree</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label"><span class="text-danger">*</span>Degree Id</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <input type="text" id="DegreeId" class="form-control" disabled />
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label"><span class="text-danger">*</span>Degree Name</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                        <input type="text" id="DegreeName" class="form-control" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" onclick="updateDegree()" data-dismiss="modal">Update</button>
+            </div>
+        </div>
+
+    </div>
+</div>
