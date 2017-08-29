@@ -1063,6 +1063,7 @@ var dataId = "";
 
 function selectData(id) {
     dataId = id;
+    console.log(dataId);
 }
 
 function deleteUni() {
