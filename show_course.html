@@ -2,14 +2,32 @@
     getCourseLists();
 
     $('#editModal').on('show.bs.modal', function() {
-        $('#CourseId').val(dataId);
-        //getCourse();
+        getCourse();
     });
 
     function getCourse() {
-        $.get("http://uninamaapi.azurewebsites.net/api/University/GetUniversityData?id=" + dataId + "", function(data, status) {
-            $('#CourseId').val(data.courseID);
-            $('#CourseName').val(data.courseName);
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/GetCourseById?id=" + dataId + "", function(data, status) {
+            $('#CourseId').val(data[0].courseID);
+            $('#CourseName').val(data[0].courseName);
+        });
+    }
+
+    function updateCourse() {
+        var courseId = $('#CourseId').val();
+        var courseName = $('#CourseName').val();
+
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/UpdateCourseById?name=" + courseName + "&id=" + courseId + "", function(data, status) {
+            $("#editModal .close").click()
+            dataId = "";
+            getCourseLists();
+        });
+    }
+
+    function deleteCourse() {
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteCourseById?id=" + dataId + "", function(data, status) {
+            $("#delModal .close").click()
+            dataId = "";
+            getCourseLists();
         });
     }
 </script>
@@ -60,7 +78,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteCourse()" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="deleteCourse()">Delete</button>
             </div>
         </div>
 
@@ -99,7 +117,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" onclick="updateCourse()" data-dismiss="modal">Update</button>
+                <button type="button" class="btn btn-warning" onclick="updateCourse()">Update</button>
             </div>
         </div>
 

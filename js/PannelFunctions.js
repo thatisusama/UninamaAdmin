@@ -34,6 +34,7 @@ var globalDegreeArray = Array();
 var globalAllDegreeArray = Array();
 var globalDisciplineArray = Array();
 var globalCourseArray = Array();
+var globalTagsArray = Array();
 // ======================================== Classes =======================================
 
 function LoginData(userEmailOrUsername, userPassword, userTypeId) {
@@ -440,7 +441,38 @@ function AddNewCourse() {
 }
 
 function AddNewTag() {
+    var NewCourse = $('#newTag').val();
 
+    if ((NewCourse != '' && NewCourse != null && NewCourse != undefined)) {
+        //   var disciplineObj = new DisciplineData(disciplineName);
+        // if (SearchIfCourseExits(NewCourse)) {
+
+        $.ajax({
+            url: "http://uninamaapi.azurewebsites.net/api/Data/AddTag?name=" + NewCourse + "",
+            type: 'get',
+            contenttype: "application/json; charset=utf-8",
+            dataType: 'json',
+            crossDomain: true,
+            async: true,
+            success: function(data) {
+                $('#ResponseDiv').html('<center><p class="alert alert-success"><strong>SUCCESS!</strong> Successfully Added.</p></center>');
+                setTimeout(function() {
+                    LoadBodyContentOnClick('newTag.html');
+                }, 2000);
+
+            },
+            error: function() {
+                $('#ResponseDiv').html('<center><p class="alert alert-danger"><strong>ERROR!</strong> Server Error.</p></center>');
+
+            }
+        });
+        // } else {
+        //     $('#ResponseDiv').html('<center><p class="alert alert-danger"><strong>ERROR!</strong> Course with this Name already Exists.</p></center>');
+
+        // }
+    } else {
+        $('#ResponseDiv').html('<center><p class="alert alert-danger"><strong>ERROR!</strong> Server Error.</p></center>');
+    }
 }
 
 function AddBadge() {
@@ -588,8 +620,6 @@ function SearchIfCourseExits(courseName) {
     });
 
     return result;
-
-
 }
 
 function GetAllUniversities(setUniToDropDownCheck) {
@@ -747,7 +777,7 @@ function SetDegreesDropdown(setDegreeToDropDownCheck) {
         $('#degreeID').html('<option value="-1">Select Degree</option>');
 
         $.each(globalDegreeArray, function(i) {
-            $('#degreeID').append('<option value="' + globalDegreeArray[i].UniversityDegreeID + '">' + globalDegreeArray[i].DegreeName + '</option>');
+            $('#degreeID').append('<option value="' + globalDegreeArray[i].universityDegreeID + '">' + globalDegreeArray[i].degreeName + '</option>');
         });
     }
 
@@ -901,6 +931,8 @@ function getUniversitiesLists() {
 }
 
 function getDegreesLists() {
+    var html = '';
+    $('#tableRow').html('');
     $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllDegrees", function(data, status) {
         data.forEach(function(element) {
             html = '<tr>' +
@@ -918,6 +950,8 @@ function getDegreesLists() {
 }
 
 function getCourseLists() {
+    var html = '';
+    $('#tableRow').html('');
     $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllCourses", function(data, status) {
         data.forEach(function(element) {
             html = '<tr>' +
@@ -935,6 +969,8 @@ function getCourseLists() {
 }
 
 function getDesplinesLists() {
+    var html = '';
+    $('#tableRow').html('');
     $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllDiscipline", function(data, status) {
         data.forEach(function(element) {
             html = '<tr>' +
@@ -952,6 +988,8 @@ function getDesplinesLists() {
 }
 
 function getBadgesList() {
+    var html = '';
+    $('#tableRow').html('');
     $.get("http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllbadges", function(data, status) {
         data.forEach(function(element) {
             html = '<tr>' +
@@ -971,6 +1009,8 @@ function getBadgesList() {
 }
 
 function getTagsList() {
+    var html = '';
+    $('#tableRow').html('');
     $.get("http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllTags", function(data, status) {
         data.forEach(function(element) {
             html = '<tr>' +
@@ -1069,32 +1109,15 @@ function selectData(id) {
 function deleteUni() {
     console.log(dataId);
     dataId = "";
-}
-
-function deleteDegree() {
-    console.log(dataId);
-    dataId = "";
+    $("#delModal .close").click()
 }
 
 function deleteBadge() {
     console.log(dataId);
     dataId = "";
+    $("#delModal .close").click()
 }
 
-function deleteTag() {
-    console.log(dataId);
-    dataId = "";
-}
-
-function deleteCourse() {
-    console.log(dataId);
-    dataId = "";
-}
-
-function deleteDescpline() {
-    console.log(dataId);
-    dataId = "";
-}
 
 function ReloadJavascripts() {
 

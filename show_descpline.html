@@ -2,14 +2,31 @@
     getDesplinesLists();
 
     $('#editModal').on('show.bs.modal', function() {
-
-        //getDescpline();
+        getDescpline();
     });
 
     function getDescpline() {
-        $.get("http://uninamaapi.azurewebsites.net/api/University/GetUniversityData?id=" + dataId + "", function(data, status) {
-            $('#DescplineID').val(data.courseID);
-            $('#DescplineName').val(data.courseName);
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/GetDesciplineById?id=" + dataId + "", function(data, status) {
+            $('#DescplineId').val(data[0].desciplineID);
+            $('#DescplineName').val(data[0].desciplineName);
+        });
+    }
+
+    function updateDescpline() {
+        var descplineId = $('#DescplineId').val();
+        var descplineName = $('#DescplineName').val();
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/UpdateDesciplineById?id=" + descplineId + "&name=" + descplineName + "", function(data, status) {
+            $("#editModal .close").click()
+            dataId = "";
+            getDesplinesLists();
+        });
+    }
+
+    function deleteDescpline() {
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteDesciplineById?id=" + dataId + "", function(data, status) {
+            $("#delModal .close").click()
+            dataId = "";
+            getDesplinesLists();
         });
     }
 </script>

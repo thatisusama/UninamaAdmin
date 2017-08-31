@@ -2,21 +2,39 @@
     getTagsList();
 
     $('#editModal').on('show.bs.modal', function() {
-
-        //getDescpline();
+        getTag();
     });
 
-    function getDescpline() {
-        $.get("http://uninamaapi.azurewebsites.net/api/University/GetUniversityData?id=" + dataId + "", function(data, status) {
-            $('#DegreeID').val(data.courseID);
-            $('#DegreeName').val(data.courseName);
+    function getTag() {
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/GetTagById?id=" + dataId + "", function(data, status) {
+            $('#TagId').val(data[0].tagID);
+            $('#TagName').val(data[0].tagName);
+        });
+    }
+
+    function updateTag() {
+        var tagId = $('#TagId').val();
+        var tagName = $('#TagName').val();
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/UpdateTagById?name=" + tagName + "&id=" + tagId + "", function(data, status) {
+            $("#editModal .close").click()
+            dataId = "";
+            getTagsList();
+        });
+
+    }
+
+    function deleteTag() {
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteTag?id=" + dataId + "", function(data, status) {
+            $("#delModal .close").click()
+            dataId = "";
+            getTagsList();
         });
     }
 </script>
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
     <li><a href="#">Home</a></li>
-    <li class="active"><a href="#">Add New Tag</a></li>
+    <li class="active"><a href="#">Show All Tag</a></li>
 </ul>
 <!-- END BREADCRUMB -->
 <!-- form -->
@@ -29,12 +47,6 @@
 
             <div class="form-horizontal">
                 <div class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><strong>View</strong> Tags</h3>
-
-                    </div>
-
 
                     <div class="panel-body">
 
@@ -128,7 +140,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" onclick="updateDegree()" data-dismiss="modal">Update</button>
+                <button type="button" class="btn btn-warning" onclick="updateTag()" data-dismiss="modal">Update</button>
             </div>
         </div>
 

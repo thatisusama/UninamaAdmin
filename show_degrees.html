@@ -3,13 +3,32 @@
 
     $('#editModal').on('show.bs.modal', function() {
 
-        //getDescpline();
+        getDegree();
     });
 
-    function getDescpline() {
-        $.get("http://uninamaapi.azurewebsites.net/api/University/GetUniversityData?id=" + dataId + "", function(data, status) {
-            $('#DegreeID').val(data.courseID);
-            $('#DegreeName').val(data.courseName);
+    function getDegree() {
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/GetDegreeById?id=" + dataId + "", function(data, status) {
+            $('#DegreeId').val(data[0].degreeID);
+            $('#DegreeName').val(data[0].degreeName);
+        });
+    }
+
+    function updateDegree() {
+        var degreeId = $('#DegreeId').val();
+        var degreeName = $('#DegreeName').val();
+
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/UpdateDegreeById?id=" + degreeId + "&name=" + degreeName + "", function(data, status) {
+            $("#editModal .close").click()
+            dataId = "";
+            getDegreesLists();
+        });
+    }
+
+    function deleteDegree() {
+        $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteDegreeById?id=" + dataId + "", function(data, status) {
+            $("#delModal .close").click()
+            dataId = "";
+            getDegreesLists();
         });
     }
 </script>
