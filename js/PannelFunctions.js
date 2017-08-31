@@ -1112,13 +1112,6 @@ function deleteUni() {
     $("#delModal .close").click()
 }
 
-function deleteBadge() {
-    console.log(dataId);
-    dataId = "";
-    $("#delModal .close").click()
-}
-
-
 function ReloadJavascripts() {
 
     $('<script />', { type: 'text/javascript', src: 'js/plugins/jquery/jquery.min.js' }).load('#JavascriptTags');
