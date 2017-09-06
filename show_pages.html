@@ -1,7 +1,6 @@
 <script>
     getUniversitiesLists();
     $('#editModal').on('show.bs.modal', function() {
-
         getUni();
     });
     $('#logoModal').on('show.bs.modal', function() {
@@ -11,13 +10,9 @@
         $('#UniiiId').val(dataId);
     });
 
-    var addressId = "";
-
     function getUni() {
         $.get("http://uninamaapi.azurewebsites.net/api/data/ShowUniversityByID?id=" + dataId + "", function(data, status) {
-            //console.log(data);
-            addressId = data[0].addressID;
-            console.log(addressId);
+            console.log(data);
             $('#UniId').val(data[0].universityID);
             $('#UniName').val(data[0].universityName);
             $('#Abb').val(data[0].universityAbbreviation);
@@ -36,35 +31,7 @@
     }
 
     function updateUni() {
-        var uniId = $('#UniId').val();
-        var uniName = $('#UniName').val();
-        var abb = $('#Abb').val();
-        var email = $('#Email').val();
-        var contact = $('#ContactNo').val();
-        var street = $('#Street').val();
-        var city = $('#City').val();
-        var state = $('#State').val();
-        var rank = $('#Rank').val();
-        var ttlStd = $('#TotalStd').val();
-        var male = $('#MaleRatio').val();
-        var female = $('#FemaleRatio').val();
-        var land = $('#LandArea').val();
-        var des = $('#Description').val();
-        $.get("http://uninamaapi.azurewebsites.net/api/data/UpdateUniversityByID?id=" + uniId + "&name=" + uniName + "&abbreviation=" + abb + "&email=" + email + "&number=" + contact + "&ranking=" + rank + "&students=" + ttlStd + "&male=" + male + "&female=" + female + "&area=" + land + "&description=" + des + "&logo=null&addressID=" + addressId + "&address=" + street + "&city=" + city + "&state=" + state + "", function(data, status) {
-            console.log(data);
-            addressId = "";
-            $("#editModal .close").click();
-            dataId = "";
-            getUniversitiesLists();
-        });
-    }
 
-    function deleteUni() {
-        $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteUniversityByID?id=" + dataId + "", function(data, status) {
-            $("#delModal .close").click()
-            dataId = "";
-            getUniversitiesLists();
-        });
     }
 </script>
 <!-- START BREADCRUMB -->

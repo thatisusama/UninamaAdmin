@@ -910,18 +910,19 @@ function ValidateInputFieldForIntegers(evt) {
 
 function getUniversitiesLists() {
     var html = '';
-    $.get("http://uninamaapi.azurewebsites.net/api/university/GetAllUniversitieslist", function(data, status) {
+    $('#tableRow').html('');
+    $.get("http://uninamaapi.azurewebsites.net/api/data/GetAllUniversities", function(data, status) {
         data.forEach(function(element) {
             html = '<tr>' +
                 '<td>' + element.$id + '</td>' +
                 '<td>' + element.universityID + '</td>' +
                 '<td>' + element.universityName + '</td>' +
-                '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="50" height="50" /></td>' +
-                '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="100" height="50" /></td>' +
+                // '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="50" height="50" /></td>' +
+                // '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="100" height="50" /></td>' +
                 '<td>' +
                 '<button class="btn btn-warning" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
-                '<button class="btn btn-primary" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#logoModal">Logo</button>' +
-                '<button class="btn btn-success" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#coverModal">Cover</button>' +
+                // '<button class="btn btn-primary" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#logoModal">Logo</button>' +
+                // '<button class="btn btn-success" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#coverModal">Cover</button>' +
                 '<button class="btn btn-danger" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
                 '</td>' +
                 '</tr>';
@@ -1028,7 +1029,7 @@ function getTagsList() {
 }
 
 function getTotalUniversities() {
-    $.get("http://uninamaapi.azurewebsites.net/api/university/GetAllUniversitieslist", function(data, status) {
+    $.get("http://uninamaapi.azurewebsites.net/api/data/GetAllUniversities", function(data, status) {
         var html;
         if (data.length > 0) {
             html = '<div class="widget-int num-count">' + data.length + '</div>'
