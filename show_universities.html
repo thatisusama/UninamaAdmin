@@ -55,7 +55,9 @@
             addressId = "";
             $("#editModal .close").click();
             dataId = "";
-            getUniversitiesLists();
+            LoadBodyContentOnClick('show_universities.html')
+
+            //getUniversitiesLists();
         });
     }
 
@@ -63,7 +65,7 @@
         $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteUniversityByID?id=" + dataId + "", function(data, status) {
             $("#delModal .close").click()
             dataId = "";
-            getUniversitiesLists();
+            LoadBodyContentOnClick('show_universities.html')
         });
     }
 </script>
@@ -80,20 +82,18 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <table class="table table-bordered table-striped table-actions">
+                    <table id="example" class="table table-bordered table-striped table-actions">
                         <thead>
                             <tr>
                                 <th>Sr. No</th>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <!-- <th>Logo</th>
-                                <th>Cover</th> -->
                                 <th>Options</th>
                             </tr>
                         </thead>
-                        <tbody id="tableRow">
+                        <!-- <tbody id="tableRow">
 
-                        </tbody>
+                        </tbody> -->
                     </table>
                 </div>
             </div>

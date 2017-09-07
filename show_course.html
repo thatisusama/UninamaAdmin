@@ -19,7 +19,8 @@
         $.get("http://uninamaapi.azurewebsites.net/api/Data/UpdateCourseById?name=" + courseName + "&id=" + courseId + "", function(data, status) {
             $("#editModal .close").click()
             dataId = "";
-            getCourseLists();
+            //getCourseLists();
+            LoadBodyContentOnClick('show_course.html')
         });
     }
 
@@ -27,7 +28,8 @@
         $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteCourseById?id=" + dataId + "", function(data, status) {
             $("#delModal .close").click()
             dataId = "";
-            getCourseLists();
+            //getCourseLists();
+            LoadBodyContentOnClick('show_course.html')
         });
     }
 </script>
@@ -44,7 +46,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <table class="table table-bordered table-striped table-actions">
+                    <table id="example2" class="table table-bordered table-striped table-actions">
                         <thead>
                             <tr>
                                 <th>Sr. No</th>

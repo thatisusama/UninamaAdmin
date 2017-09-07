@@ -20,7 +20,8 @@
         $.get("http://uninamaapi.azurewebsites.net/api/Data/UpdateDegreeById?id=" + degreeId + "&name=" + degreeName + "", function(data, status) {
             $("#editModal .close").click()
             dataId = "";
-            getDegreesLists();
+            //getDegreesLists();
+            LoadBodyContentOnClick('show_degrees.html')
         });
     }
 
@@ -28,7 +29,8 @@
         $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteDegreeById?id=" + dataId + "", function(data, status) {
             $("#delModal .close").click()
             dataId = "";
-            getDegreesLists();
+            //getDegreesLists();
+            LoadBodyContentOnClick('show_degrees.html')
         });
     }
 </script>
@@ -45,7 +47,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <table class="table table-bordered table-striped table-actions">
+                    <table id="example1" class="table table-bordered table-striped table-actions">
                         <thead>
                             <tr>
                                 <th>Sr. No</th>

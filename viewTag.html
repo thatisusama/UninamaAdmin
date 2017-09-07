@@ -18,7 +18,7 @@
         $.get("http://uninamaapi.azurewebsites.net/api/Data/UpdateTagById?name=" + tagName + "&id=" + tagId + "", function(data, status) {
             $("#editModal .close").click()
             dataId = "";
-            getTagsList();
+            LoadBodyContentOnClick('viewTag.html')
         });
 
     }
@@ -27,7 +27,8 @@
         $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteTag?id=" + dataId + "", function(data, status) {
             $("#delModal .close").click()
             dataId = "";
-            getTagsList();
+            //getTagsList();
+            LoadBodyContentOnClick('viewTag.html')
         });
     }
 </script>
@@ -60,7 +61,7 @@
                             <div class="col-lg-12">
                                 <h2>All Tags</h2>
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    <table id="example4" class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Sr. No</th>

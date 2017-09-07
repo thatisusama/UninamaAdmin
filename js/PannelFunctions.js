@@ -909,122 +909,331 @@ function ValidateInputFieldForIntegers(evt) {
 }
 
 function getUniversitiesLists() {
-    var html = '';
-    $('#tableRow').html('');
-    $.get("http://uninamaapi.azurewebsites.net/api/data/GetAllUniversities", function(data, status) {
-        data.forEach(function(element) {
-            html = '<tr>' +
-                '<td>' + element.$id + '</td>' +
-                '<td>' + element.universityID + '</td>' +
-                '<td>' + element.universityName + '</td>' +
-                // '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="50" height="50" /></td>' +
-                // '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="100" height="50" /></td>' +
-                '<td>' +
-                '<button class="btn btn-warning" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
-                // '<button class="btn btn-primary" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#logoModal">Logo</button>' +
-                // '<button class="btn btn-success" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#coverModal">Cover</button>' +
-                '<button class="btn btn-danger" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
-                '</td>' +
-                '</tr>';
-            $('#tableRow').append(html);
-        }, this);
+    // var html = '';
+    // $('#tableRow').html('');
+    // $.get("http://uninamaapi.azurewebsites.net/api/data/GetAllUniversities", function(data, status) {
+    //     data.forEach(function(element) {
+    //         html = '<tr>' +
+    //             '<td>' + element.$id + '</td>' +
+    //             '<td>' + element.universityID + '</td>' +
+    //             '<td>' + element.universityName + '</td>' +
+    //             // '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="50" height="50" /></td>' +
+    //             // '<td><img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + element.universityLogo + '" width="100" height="50" /></td>' +
+    //             '<td>' +
+    //             '<button class="btn btn-warning" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
+    //             // '<button class="btn btn-primary" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#logoModal">Logo</button>' +
+    //             // '<button class="btn btn-success" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#coverModal">Cover</button>' +
+    //             '<button class="btn btn-danger" id="' + element.universityID + '" onclick="selectData(' + element.universityID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
+    //             '</td>' +
+    //             '</tr>';
+    //         $('#tableRow').append(html);
+    //     }, this);
+    // });
+
+    var table = $('#example').DataTable({
+        "ajax": {
+            "url": "http://uninamaapi.azurewebsites.net/api/data/GetAllUniversities",
+            "dataSrc": ""
+        },
+        "columns": [{
+            "data": "$id"
+        }, {
+            "data": "universityID"
+        }, {
+            "data": "universityName"
+        }, {
+            "data": "options"
+        }],
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Update</button><button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Delete</button>'
+        }]
+    });
+
+    $('#example tbody').on('click', 'button', function() {
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0]);
+        selectData(data.universityID);
     });
 }
 
 function getDegreesLists() {
-    var html = '';
-    $('#tableRow').html('');
-    $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllDegrees", function(data, status) {
-        data.forEach(function(element) {
-            html = '<tr>' +
-                '<td>' + element.$id + '</td>' +
-                '<td>' + element.degreeID + '</td>' +
-                '<td>' + element.degreeName + '</td>' +
-                '<td>' +
-                '<button class="btn btn-warning" id="' + element.degreeID + '" onclick="selectData(' + element.degreeID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
-                '<button class="btn btn-danger" id="' + element.degreeID + '" onclick="selectData(' + element.degreeID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
-                '</td>' +
-                '</tr>';
-            $('#tableRow').append(html);
-        }, this);
+    // var html = '';
+    // $('#tableRow').html('');
+    // $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllDegrees", function(data, status) {
+    //     data.forEach(function(element) {
+    //         html = '<tr>' +
+    //             '<td>' + element.$id + '</td>' +
+    //             '<td>' + element.degreeID + '</td>' +
+    //             '<td>' + element.degreeName + '</td>' +
+    //             '<td>' +
+    //             '<button class="btn btn-warning" id="' + element.degreeID + '" onclick="selectData(' + element.degreeID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
+    //             '<button class="btn btn-danger" id="' + element.degreeID + '" onclick="selectData(' + element.degreeID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
+    //             '</td>' +
+    //             '</tr>';
+    //         $('#tableRow').append(html);
+    //     }, this);
+    // });
+    var table = $('#example1').DataTable({
+        "ajax": {
+            "url": "http://uninamaapi.azurewebsites.net/api/Data/GetAllDegrees",
+            "dataSrc": ""
+        },
+        "columns": [{
+            "data": "$id"
+        }, {
+            "data": "degreeID"
+        }, {
+            "data": "degreeName"
+        }, {
+            "data": "options"
+        }],
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Update</button><button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Delete</button>'
+        }]
+    });
+
+    $('#example1 tbody').on('click', 'button', function() {
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0]);
+        selectData(data.degreeID);
     });
 }
 
 function getCourseLists() {
-    var html = '';
-    $('#tableRow').html('');
-    $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllCourses", function(data, status) {
-        data.forEach(function(element) {
-            html = '<tr>' +
-                '<td>' + element.$id + '</td>' +
-                '<td>' + element.courseID + '</td>' +
-                '<td>' + element.courseName + '</td>' +
-                '<td>' +
-                '<button class="btn btn-warning" id="' + element.courseID + '" onclick="selectData(' + element.courseID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
-                '<button class="btn btn-danger" id="' + element.courseID + '" onclick="selectData(' + element.courseID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
-                '</td>' +
-                '</tr>';
-            $('#tableRow').append(html);
-        }, this);
+    // var html = '';
+    // $('#tableRow').html('');
+    // $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllCourses", function(data, status) {
+    //     data.forEach(function(element) {
+    //         html = '<tr>' +
+    //             '<td>' + element.$id + '</td>' +
+    //             '<td>' + element.courseID + '</td>' +
+    //             '<td>' + element.courseName + '</td>' +
+    //             '<td>' +
+    //             '<button class="btn btn-warning" id="' + element.courseID + '" onclick="selectData(' + element.courseID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
+    //             '<button class="btn btn-danger" id="' + element.courseID + '" onclick="selectData(' + element.courseID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
+    //             '</td>' +
+    //             '</tr>';
+    //         $('#tableRow').append(html);
+    //     }, this);
+    // });
+    var table = $('#example2').DataTable({
+        "ajax": {
+            "url": "http://uninamaapi.azurewebsites.net/api/Data/GetAllCourses",
+            "dataSrc": ""
+        },
+        "columns": [{
+            "data": "$id"
+        }, {
+            "data": "courseID"
+        }, {
+            "data": "courseName"
+        }, {
+            "data": "options"
+        }],
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Update</button><button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Delete</button>'
+        }]
+    });
+
+    $('#example2 tbody').on('click', 'button', function() {
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0]);
+        selectData(data.courseID);
     });
 }
 
 function getDesplinesLists() {
-    var html = '';
-    $('#tableRow').html('');
-    $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllDiscipline", function(data, status) {
-        data.forEach(function(element) {
-            html = '<tr>' +
-                '<td>' + element.$id + '</td>' +
-                '<td>' + element.desciplineID + '</td>' +
-                '<td>' + element.desciplineName + '</td>' +
-                '<td>' +
-                '<button class="btn btn-warning" id="' + element.desciplineID + '" onclick="selectData(' + element.desciplineID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
-                '<button class="btn btn-danger" id="' + element.desciplineID + '" onclick="selectData(' + element.desciplineID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
-                '</td>' +
-                '</tr>';
-            $('#tableRow').append(html);
-        }, this);
+    // var html = '';
+    // $('#tableRow').html('');
+    // $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllDiscipline", function(data, status) {
+    //     data.forEach(function(element) {
+    //         html = '<tr>' +
+    //             '<td>' + element.$id + '</td>' +
+    //             '<td>' + element.desciplineID + '</td>' +
+    //             '<td>' + element.desciplineName + '</td>' +
+    //             '<td>' +
+    //             '<button class="btn btn-warning" id="' + element.desciplineID + '" onclick="selectData(' + element.desciplineID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
+    //             '<button class="btn btn-danger" id="' + element.desciplineID + '" onclick="selectData(' + element.desciplineID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
+    //             '</td>' +
+    //             '</tr>';
+    //         $('#tableRow').append(html);
+    //     }, this);
+    // });
+    var table = $('#example3').DataTable({
+        "ajax": {
+            "url": "http://uninamaapi.azurewebsites.net/api/Data/GetAllDiscipline",
+            "dataSrc": ""
+        },
+        "columns": [{
+            "data": "$id"
+        }, {
+            "data": "desciplineID"
+        }, {
+            "data": "desciplineName"
+        }, {
+            "data": "options"
+        }],
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Update</button><button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Delete</button>'
+        }]
+    });
+
+    $('#example3 tbody').on('click', 'button', function() {
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0]);
+        selectData(data.desciplineID);
     });
 }
 
 function getBadgesList() {
     var html = '';
-    $('#tableRow').html('');
-    $.get("http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllbadges", function(data, status) {
-        data.forEach(function(element) {
-            html = '<tr>' +
-                '<td>' + element.$id + '</td>' +
-                '<td>' + element.badgeID + '</td>' +
-                '<td>' + element.badgeName + '</td>' +
-                '<td><img src=" ' + element.badgeImage + '" width="50" height="50" /></td>' +
-                '<td>' +
-                '<button class="btn btn-warning" id="' + element.badgeID + '" onclick="selectData(' + element.badgeID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
-                '<button class="btn btn-success" id="' + element.badgeID + '" onclick="selectData(' + element.badgeID + ')" data-toggle="modal" data-target="#badgeModal">Image</button>' +
-                '<button class="btn btn-danger" id="' + element.badgeID + '" onclick="selectData(' + element.badgeID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
-                '</td>' +
-                '</tr>';
-            $('#tableRow').append(html);
-        }, this);
+    // $('#tableRow').html('');
+    // $.get("http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllbadges", function(data, status) {
+    //     data.forEach(function(element) {
+    //         html = '<tr>' +
+    //             '<td>' + element.$id + '</td>' +
+    //             '<td>' + element.badgeID + '</td>' +
+    //             '<td>' + element.badgeName + '</td>' +
+    //             '<td><img src=" ' + element.badgeImage + '" width="50" height="50" /></td>' +
+    //             '<td>' +
+    //             '<button class="btn btn-warning" id="' + element.badgeID + '" onclick="selectData(' + element.badgeID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
+    //             '<button class="btn btn-success" id="' + element.badgeID + '" onclick="selectData(' + element.badgeID + ')" data-toggle="modal" data-target="#badgeModal">Image</button>' +
+    //             '<button class="btn btn-danger" id="' + element.badgeID + '" onclick="selectData(' + element.badgeID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
+    //             '</td>' +
+    //             '</tr>';
+    //         $('#tableRow').append(html);
+    //     }, this);
+    // });
+    var table = $('#example5').DataTable({
+        "ajax": {
+            "url": "http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllbadges",
+            "dataSrc": ""
+        },
+        "columns": [{
+            "data": "$id"
+        }, {
+            "data": "badgeID"
+        }, {
+            "data": "badgeName"
+        }, {
+            "data": "badgeImage",
+            "render": function(data, type, row) {
+                return '<img src="' + data + '" />';
+            }
+        }, {
+            "data": "options"
+        }],
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Update</button><button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Delete</button>'
+        }]
+    });
+
+    $('#example5 tbody').on('click', 'button', function() {
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0]);
+        selectData(data.badgeID);
     });
 }
 
 function getTagsList() {
-    var html = '';
-    $('#tableRow').html('');
-    $.get("http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllTags", function(data, status) {
-        data.forEach(function(element) {
-            html = '<tr>' +
-                '<td>' + element.$id + '</td>' +
-                '<td>' + element.tagID + '</td>' +
-                '<td>' + element.tagName + '</td>' +
-                '<td>' +
-                '<button class="btn btn-warning" id="' + element.tagID + '" onclick="selectData(' + element.tagID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
-                '<button class="btn btn-danger" id="' + element.tagID + '" onclick="selectData(' + element.tagID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
-                '</td>' +
-                '</tr>';
-            $('#tableRow').append(html);
-        }, this);
+    // var html = '';
+    // $('#tableRow').html('');
+    // $.get("http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllTags", function(data, status) {
+    //     data.forEach(function(element) {
+    //         html = '<tr>' +
+    //             '<td>' + element.$id + '</td>' +
+    //             '<td>' + element.tagID + '</td>' +
+    //             '<td>' + element.tagName + '</td>' +
+    //             '<td>' +
+    //             '<button class="btn btn-warning" id="' + element.tagID + '" onclick="selectData(' + element.tagID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
+    //             '<button class="btn btn-danger" id="' + element.tagID + '" onclick="selectData(' + element.tagID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
+    //             '</td>' +
+    //             '</tr>';
+    //         $('#tableRow').append(html);
+    //     }, this);
+    // });
+
+    var table = $('#example4').DataTable({
+        "ajax": {
+            "url": "http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllTags",
+            "dataSrc": ""
+        },
+        "columns": [{
+            "data": "$id"
+        }, {
+            "data": "tagID"
+        }, {
+            "data": "tagName"
+        }, {
+            "data": "options"
+        }],
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Update</button><button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Delete</button>'
+        }]
+    });
+
+    $('#example4 tbody').on('click', 'button', function() {
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0]);
+        selectData(data.tagID);
+    });
+}
+
+function getPagesList() {
+    // var html = '';
+    // $('#tableRow').html('');
+    // $.get("http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllTags", function(data, status) {
+    //     data.forEach(function(element) {
+    //         html = '<tr>' +
+    //             '<td>' + element.$id + '</td>' +
+    //             '<td>' + element.tagID + '</td>' +
+    //             '<td>' + element.tagName + '</td>' +
+    //             '<td>' +
+    //             '<button class="btn btn-warning" id="' + element.tagID + '" onclick="selectData(' + element.tagID + ')" data-toggle="modal" data-target="#editModal">Update</button>' +
+    //             '<button class="btn btn-danger" id="' + element.tagID + '" onclick="selectData(' + element.tagID + ')" data-toggle="modal" data-target="#delModal">Delete</button>' +
+    //             '</td>' +
+    //             '</tr>';
+    //         $('#tableRow').append(html);
+    //     }, this);
+    // });
+
+    var table = $('#example6').DataTable({
+        "ajax": {
+            "url": "http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllTags",
+            "dataSrc": ""
+        },
+        "columns": [{
+            "data": "$id"
+        }, {
+            "data": "tagID"
+        }, {
+            "data": "tagName"
+        }, {
+            "data": "options"
+        }],
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": '<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Update</button><button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Delete</button>'
+        }]
+    });
+
+    $('#example6 tbody').on('click', 'button', function() {
+        var data = table.row($(this).parents('tr')).data();
+        //alert(data[0]);
+        selectData(data.tagID);
     });
 }
 
