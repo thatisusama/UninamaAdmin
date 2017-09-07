@@ -172,6 +172,7 @@ function UserLogin() {
     var usernameOrEmail = $('#login-email-or-username').val().toLowerCase();
     var password = $.md5($('#login-password').val());
     var utid = 1;
+    //window.location.assign("admin-portal.html");
 
     LoginValidation(usernameOrEmail, password, utid);
 }
@@ -874,22 +875,22 @@ function LoadCurrentPageLoadedStoreInSession() {
 }
 
 function CheckSession() {
-    /*    var LoggedInUser = GetLoggedInUserInfo();
+    var LoggedInUser = GetLoggedInUserInfo();
 
-        var currentPageLoaded = window.location.href.split(URL_SPLIT)[1];
-        if(currentPageLoaded == "index.html" || (currentPageLoaded == "" || currentPageLoaded == null) || currentPageLoaded == "login.html"){
-            if(LoggedInUser != null && LoggedInUser != ""){
-                LoginValidation(LoggedInUser.userEmail.toLowerCase(), LoggedInUser.userPassword,LoggedInUser.userTypeId);
-               // window.location.assign("admin-portal.html");
-                //LoadBodyContentOnClick(GetCurrentPageLoadedStoreInSession());
-            }
-        }else if(currentPageLoaded == "admin-portal.html"){
-            if(LoggedInUser == null || LoggedInUser == "") {
-                window.location.assign("index.html");
-            }else{
-                LoadBodyContentOnClick(GetCurrentPageLoadedStoreInSession());
-            }
-        }*/
+    var currentPageLoaded = window.location.href.split(URL_SPLIT)[1];
+    if (currentPageLoaded == "index.html" || (currentPageLoaded == "" || currentPageLoaded == null) || currentPageLoaded == "login.html") {
+        if (LoggedInUser != null && LoggedInUser != "") {
+            LoginValidation(LoggedInUser.userEmail.toLowerCase(), LoggedInUser.userPassword, LoggedInUser.userTypeId);
+            // window.location.assign("admin-portal.html");
+            //LoadBodyContentOnClick(GetCurrentPageLoadedStoreInSession());
+        }
+    } else if (currentPageLoaded == "admin-portal.html") {
+        if (LoggedInUser == null || LoggedInUser == "") {
+            window.location.assign("index.html");
+        } else {
+            LoadBodyContentOnClick(GetCurrentPageLoadedStoreInSession());
+        }
+    }
 }
 
 function validateEmail(email) {
@@ -1211,15 +1212,22 @@ function getPagesList() {
 
     var table = $('#example6').DataTable({
         "ajax": {
-            "url": "http://uninamaapi.azurewebsites.net/api/NewsFeed/GetAllTags",
+            "url": "http://uninamaapi.azurewebsites.net/api/data/GetAllPages",
             "dataSrc": ""
         },
         "columns": [{
             "data": "$id"
         }, {
-            "data": "tagID"
+            "data": "pageID"
         }, {
-            "data": "tagName"
+            "data": "pageName"
+        }, {
+            "data": "pageCreationDate"
+        }, {
+            "data": "pageDisplayImage",
+            "render": function(data, type, row) {
+                return '<img src="http://uninamaapi.azurewebsites.net/images/Uniimages/' + data + '" width="90" height="90" />';
+            }
         }, {
             "data": "options"
         }],
@@ -1233,7 +1241,7 @@ function getPagesList() {
     $('#example6 tbody').on('click', 'button', function() {
         var data = table.row($(this).parents('tr')).data();
         //alert(data[0]);
-        selectData(data.tagID);
+        selectData(data.pageID);
     });
 }
 

@@ -1,7 +1,7 @@
 <script>
-    //getbadgeslist();
+    getPagesList();
     $('#editModal').on('show.bs.modal', function() {
-        //getUni();
+        getPage();
     });
     $('#logoModal').on('show.bs.modal', function() {
         $('#UniiId').val(dataId);
@@ -10,27 +10,36 @@
         $('#UniiiId').val(dataId);
     });
 
-    function getUni() {
-        $.get("http://uninamaapi.azurewebsites.net/api/data/ShowUniversityByID?id=" + dataId + "", function(data, status) {
-            console.log(data);
-            $('#UniId').val(data[0].universityID);
-            $('#UniName').val(data[0].universityName);
-            $('#Abb').val(data[0].universityAbbreviation);
-            $('#Email').val(data[0].universityEmail);
-            $('#ContactNo').val(data[0].universityContactNumber);
-            $('#Street').val(data[0].streetAddress);
-            $('#City').val(data[0].city);
-            $('#State').val(data[0].state);
-            $('#Rank').val(data[0].universityRanking);
-            $('#TotalStd').val(data[0].universityTotalStudents);
-            $('#MaleRatio').val(data[0].universityMaleStudentsRatio);
-            $('#FemaleRatio').val(data[0].universityFemaleStudentsRatio);
-            $('#LandArea').val(data[0].universityLandArea);
-            $('#Description').val(data[0].universityDescription);
+    function getPage() {
+        $.get("http://uninamaapi.azurewebsites.net/api/data/GetPageByID?id=" + dataId + "", function(data, status) {
+            $('#PageId').val(data[0].pageID);
+            $('#PageName').val(data[0].pageName);
+            $('#Description').val(data[0].pageDescription);
         });
     }
 
-    function updateUni() {
+    function updatePage() {
+        var name = $('#PageName').val();
+        var desc = $('#Description').val();
+        $.get("http://uninamaapi.azurewebsites.net/api/data/UpdatePageByID?id=" + dataId + "&name=" + name + "&description=" + desc + "", function(data, status) {
+            console.log(data);
+            addressId = "";
+            $("#editModal .close").click();
+            dataId = "";
+            LoadBodyContentOnClick('show_pages.html')
+        });
+
+    }
+
+    function deletePage() {
+        // $.get("http://uninamaapi.azurewebsites.net/api/Data/DeleteUniversityByID?id=" + dataId + "", function(data, status) {
+        //     $("#delModal .close").click()
+        //     dataId = "";
+        //     LoadBodyContentOnClick('show_pages.html')
+        // });
+    }
+
+    function uploadLogo() {
 
     }
 </script>
@@ -51,10 +60,10 @@
                         <thead>
                             <tr>
                                 <th>Sr. No</th>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <!-- <th>Logo</th>
-                                <th>Cover</th> -->
+                                <th>pageID</th>
+                                <th>pageName</th>
+                                <th>CreationDate</th>
+                                <th>Logo</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -76,14 +85,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Delete University</h4>
+                <h4 class="modal-title">Delete Page</h4>
             </div>
             <div class="modal-body">
-                <p>Are you sure to Delete this university?</p>
+                <p>Are you sure to Delete this Page?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteUni()" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="deletePage()" data-dismiss="modal">Delete</button>
             </div>
         </div>
 
@@ -101,11 +110,11 @@
             <div class="modal-body" id="modalBody">
 
                 <div class="form-group">
-                    <label class="control-label"><span class="text-danger">*</span>University Id</label>
+                    <label class="control-label"><span class="text-danger">*</span>Page Id</label>
 
                     <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                        <input type="text" id="UniId" class="form-control" disabled />
+                        <input type="text" id="PageId" class="form-control" disabled />
                     </div>
 
                 </div>
@@ -113,197 +122,16 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>University Name</label>
+                            <label class="control-label"><span class="text-danger">*</span>Page Name</label>
 
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input type="text" id="UniName" class="form-control" />
+                                <input type="text" id="PageName" class="form-control" />
                             </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label">Abbrevation</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="Abb" type="text" class="form-control" />
-                            </div>
-
 
                         </div>
                     </div>
                 </div>
-
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>Email</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="Email" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>Contact Number</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="ContactNo" type="text" class="form-control" onkeypress="ValidateInputFieldForIntegers(evt)" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>street</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="Street" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>City</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="City" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>State</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="State" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class=" control-label">Ranking</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="Rank" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label">Total Students</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="TotalStd" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label">Male Student Ratio</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="MaleRatio" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label">Female Student Ratio</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="FemaleRatio" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label">Land Area</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input id="LandArea" type="text" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>University Profile Picture</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input type="file" id="UniProfile" class="form-control" />
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label"><span class="text-danger">*</span>University Cover</label>
-
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input type="file" id="UniCover" class="form-control" />
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div> -->
 
                 <div class="form-group">
                     <label class=" control-label"> Description</label>
@@ -315,7 +143,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" onclick="updateUni()" data-dismiss="modal">Update</button>
+                <button type="button" class="btn btn-warning" onclick="updatePage()" data-dismiss="modal">Update</button>
             </div>
         </div>
 
@@ -333,11 +161,11 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="control-label"><span class="text-danger">*</span>University Id</label>
+                    <label class="control-label"><span class="text-danger">*</span>Page Id</label>
 
                     <div class="input-group">
                         <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                        <input type="text" id="UniiId" class="form-control" disabled />
+                        <input type="text" id="pageiId" class="form-control" disabled />
                     </div>
 
                 </div>
@@ -354,7 +182,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteUni()" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="uploadLogo()" data-dismiss="modal">Upload</button>
             </div>
         </div>
 
