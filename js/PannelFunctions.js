@@ -1317,6 +1317,18 @@ function getTotalDisciplines() {
     });
 }
 
+function getTotalPages() {
+    $.get("http://uninamaapi.azurewebsites.net/api/Data/GetAllPages", function(data, status) {
+        var html;
+        if (data.length > 0) {
+            html = '<div class="widget-int num-count">' + data.length + '</div>'
+        } else {
+            html = '<div class="widget-int num-count">0</div>'
+        }
+        $('#totalPages').append(html);
+    });
+}
+
 var dataId = "";
 
 function selectData(id) {

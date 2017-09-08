@@ -14,6 +14,20 @@
     var addressId = "";
 
     function getUni() {
+        $('#UniId').val("");
+        $('#UniName').val("");
+        $('#Abb').val("");
+        $('#Email').val("");
+        $('#ContactNo').val("");
+        $('#Street').val("");
+        $('#City').val("");
+        $('#State').val("");
+        $('#Rank').val("");
+        $('#TotalStd').val("");
+        $('#MaleRatio').val("");
+        $('#FemaleRatio').val("");
+        $('#LandArea').val("");
+        $('#Description').val("");
         $.get("http://uninamaapi.azurewebsites.net/api/data/ShowUniversityByID?id=" + dataId + "", function(data, status) {
             //console.log(data);
             addressId = data[0].addressID;
